@@ -5,6 +5,8 @@ class TodosController < ApplicationController
   # GET /todos.json
   def index
     @todos = Todo.all
+    # Prevents from overriding the Stimulus Reflex variable
+    @todo ||= Todo.new
   end
 
   # GET /todos/1

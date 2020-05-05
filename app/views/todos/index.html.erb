@@ -1,9 +1,11 @@
 <h1 class="text-5xl">Todos</h1>
 
-<div data-controller="drag" data-drag-url="/todos/:id/move">
+<%= render "todos/form", todo: @todo %>
+
+<div>
   <% @todos.each do |todo| %>
     <div class="flex my-4 p-4 w-full border border-gray-200 rounded shadow-md">
-      <%= check_box_tag "completed", "#", !todo.completed_at.nil?, class: "form-checkbox ml-6 mr-10 mt-6 h-8 w-8 bg-gray-100" %>  
+      <%= check_box_tag "completed", "#", !todo.completed_at.nil?, data: { reflex: "click->ExampleReflex#toggle", id: todo.id}, class: "form-checkbox ml-6 mr-10 mt-6 h-8 w-8 bg-gray-100 hover:cursor-pointer" %>  
       <div>
   	    <%= link_to todo, class: "hover:underline hover:cursor-pointer" do %>	    	
   	      <%= content_tag :p, todo.description, class: "text-xl" %>
@@ -13,7 +15,7 @@
           <% unless todo.completed_at.nil? %>
             <%= content_tag :p, todo.completed_at, class: "text-gray-500" %>
           <% else %>
-            <p class="text-gray-700">Not yet completed</p>
+            <p class="text-gray-500">Not yet completed</p>
           <% end %>
         </div>
       </div>
@@ -22,5 +24,3 @@
 </div>
 
 <br>
-
-<%= link_to 'New Todo', new_todo_path, class: "btn" %>
